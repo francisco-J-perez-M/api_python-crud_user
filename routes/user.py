@@ -22,8 +22,12 @@ def show(user_id):
 @user_bp.route('/', methods=['POST'])
 def store():
     data = request.get_json()
-    result = create_user(data)
-    return jsonify(result)
+    name = data.get('name')
+    email = data.get('email')
+    print(f"variable name = {name}")
+    print(f"variable email = {email}")
+    new_user = create_user(name, email)
+    return jsonify(new_user), 200
 
 @user_bp.route('/<int:user_id>', methods=['PUT'])
 def update(user_id):

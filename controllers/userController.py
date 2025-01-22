@@ -11,21 +11,12 @@ def get_user_by_id(user_id):
         return {"error": "User not found"}, 404
     return user.to_dict()
 
-def create_user(data):
-    name = data.get('name')
-    email = data.get('email')
-
-    if not name or not email:
-        return {"error": "Name and email are required"}, 400
-
-    if User.query.filter_by(email=email).first():
-        return {"error": "Email already exists"}, 400
-
-    new_user = User(name=name, email=email)
+def create_user(name,email):
+    new_user = User(name, email)
     db.session.add(new_user)
     db.session.commit()
-
-    return new_user.to_dict(), 201
+    return new_user.to_dict()
+    return "hola"
 
 def update_user(user_id, data):
     user = User.query.get(user_id)
